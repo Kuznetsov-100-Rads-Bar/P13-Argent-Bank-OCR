@@ -2,24 +2,52 @@ import React from 'react';
 import styled from 'styled-components';
 import BankTree from '../assets/bank-tree.jpeg';
 
+import IconChat from "../assets/icon-chat.png";
+import IconMoney from "../assets/icon-money.png";
+import IconSecurity from "../assets/icon-security.png";
+import FeatureElement from '../components/Feature/FeatureElement';
+
 export default function HomePage() {
+  const FeatureCardData = [
+    {
+      icon: IconChat,
+      altText: "Chat feature",
+      title: "You are our #1 priority",
+      description: "Need to talk to a representative? You can get in touch through our 24/7 chat or through a phone call in less than 5 minutes."
+    },
+    {
+      icon: IconMoney,
+      altText: "Money feature",
+      title: "More savings means higher rates",
+      description: "The more you save with us, the higher your interest rate will be!"
+    },
+    {
+      icon: IconSecurity,
+      altText: "Security feature",
+      title: "Security you can trust",
+      description: "We use top of the line encryption to make sure your data and money is always safe."
+    }
+  ]
   return (
- <StyledHomePage>
-<Main>
-<Hero>
-<HeroContent>
-  <HeroContentSrOnly>Promoted Content</HeroContentSrOnly>
-  <HeroContentSubtitle>No fees.</HeroContentSubtitle>
-  <HeroContentSubtitle>No minimum deposit.</HeroContentSubtitle>
-  <HeroContentSubtitle>High interest rates.</HeroContentSubtitle>
-  <HeroContentText>Open a savings account with Argent Bank today!</HeroContentText>
-</HeroContent>
-</Hero>
-  <Features>
-    <FeaturesSrOnly>Features</FeaturesSrOnly>
-  </Features>
-</Main>
- </StyledHomePage>
+    <StyledHomePage>
+      <Main>
+        <Hero>
+          <HeroContent>
+            <HeroContentSrOnly>Promoted Content</HeroContentSrOnly>
+            <HeroContentSubtitle>No fees.</HeroContentSubtitle>
+            <HeroContentSubtitle>No minimum deposit.</HeroContentSubtitle>
+            <HeroContentSubtitle>High interest rates.</HeroContentSubtitle>
+            <HeroContentText>Open a savings account with Argent Bank today!</HeroContentText>
+          </HeroContent>
+        </Hero>
+        <Features>
+          <FeaturesSrOnly>Features</FeaturesSrOnly>
+          {FeatureCardData.map((feature, index) => {
+            return <FeatureElement key={index} icon={feature.icon} altText={feature.title} description={feature.description} title={feature.title} />
+          })}
+        </Features>
+      </Main>
+    </StyledHomePage>
   )
 }
 
