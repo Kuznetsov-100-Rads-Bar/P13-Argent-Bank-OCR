@@ -3,9 +3,6 @@ import React, { useState } from "react";
 // style component
 import styled from "styled-components";
 
-// components
-import Button from "../components/Design/Button";
-
 // font awesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
@@ -61,12 +58,9 @@ export default function Login() {
                 Remember me
               </LoginFormLabelRecollect>
             </LoginFormCategoryRecollect>
-            <Button
-              type="button"
-              fullWidth={true}
-              text="Sign In"
-              underline={true}
-            />
+            <LoginConnectButton
+              type="submit"
+            >Sign In</LoginConnectButton>
           </LoginForm>
         </LoginContent>
       </Main>
@@ -113,3 +107,15 @@ const LoginFormInputRecollect = styled.input`
   text-align: left;
   margin-bottom: 1rem;
 `;
+const LoginConnectButton = styled.button`
+  border: none;
+  display: block;
+  width: 100%;
+  padding: 8px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-top: 1rem;
+  border-color: #00bc77;
+  background-color: #00bc77;
+  color: #fff;
+`

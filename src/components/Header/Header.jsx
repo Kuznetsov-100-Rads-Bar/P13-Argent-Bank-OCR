@@ -1,7 +1,7 @@
 import React from 'react'
 
 // react-router-dom
-import { Link, Routes } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 // styled components
 import styled from 'styled-components'
@@ -25,21 +25,21 @@ export default function Header() {
         </NavbarLogo>
         <NavbarList>
           <NavbarListElement>
-            <NavbarListElementLink to={Routes.User}>
+            <NavbarListElementLink as={Link} to={"/"}>
               <FontAwesomeIcon icon={faUserCircle} style={{ marginRight: "0.5rem" }} />
               Connected user
             </NavbarListElementLink>
           </NavbarListElement>
 
           <NavbarListElement>
-            <NavbarListElementLink to={Routes.Home}>
+            <NavbarListElementLink as={Link} to={"/"}>
               <FontAwesomeIcon icon={faSignOutAlt} style={{ marginRight: "0.5rem" }} />
               Sign Out
             </NavbarListElementLink>
           </NavbarListElement>
 
           <NavbarListElement>
-            <NavbarListElementLink to={Routes.Login}>
+            <NavbarListElementLink as={Link} to={"/login"}>
               <FontAwesomeIcon icon={faUserCircle} style={{ marginRight: "0.5rem" }} />
               Sign In
             </NavbarListElementLink>
@@ -84,7 +84,7 @@ margin: 0 0.5rem;
 text-decoration: underline;
 `;
 
-const NavbarListElementLink = styled(Link)`
+const NavbarListElementLink = styled.a`
 font-weight: 700;
 text-decoration: none;
 color: ${Colors.neutral};
