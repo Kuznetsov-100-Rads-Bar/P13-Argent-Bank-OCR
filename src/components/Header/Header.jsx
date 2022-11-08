@@ -1,20 +1,20 @@
-import React from 'react'
+import React from "react";
 
 // react-router-dom
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 // styled components
-import styled from 'styled-components'
+import styled from "styled-components";
 
 // assets
-import ArgentBankLogo from '../../assets/argentBankLogo.png';
+import ArgentBankLogo from "../../assets/argentBankLogo.png";
 
 // icons
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSignOutAlt, faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSignOutAlt, faUserCircle } from "@fortawesome/free-solid-svg-icons";
 
 // utils
-import { Colors } from '../../utils/styleColors/Colors';
+import { Colors } from "../../utils/styleColors/Colors";
 
 export default function Header() {
   return (
@@ -25,56 +25,64 @@ export default function Header() {
         </NavbarLogo>
         <NavbarList>
           <NavbarListElement>
-            <NavbarListElementLink as={Link} to={"/"}>
-              <FontAwesomeIcon icon={faUserCircle} style={{ marginRight: "0.5rem" }} />
+            <NavbarListElementLink as={Link} to={"/profil"}>
+              <FontAwesomeIcon
+                icon={faUserCircle}
+                style={{ marginRight: "0.5rem" }}
+              />
               Connected user
             </NavbarListElementLink>
           </NavbarListElement>
 
           <NavbarListElement>
             <NavbarListElementLink as={Link} to={"/"}>
-              <FontAwesomeIcon icon={faSignOutAlt} style={{ marginRight: "0.5rem" }} />
+              <FontAwesomeIcon
+                icon={faSignOutAlt}
+                style={{ marginRight: "0.5rem" }}
+              />
               Sign Out
             </NavbarListElementLink>
           </NavbarListElement>
 
           <NavbarListElement>
             <NavbarListElementLink as={Link} to={"/login"}>
-              <FontAwesomeIcon icon={faUserCircle} style={{ marginRight: "0.5rem" }} />
+              <FontAwesomeIcon
+                icon={faUserCircle}
+                style={{ marginRight: "0.5rem" }}
+              />
               Sign In
             </NavbarListElementLink>
           </NavbarListElement>
         </NavbarList>
       </Navbar>
     </StyledHeader>
-  )
+  );
 }
 
-const StyledHeader = styled.header`
-`;
+const StyledHeader = styled.header``;
 
 const Navbar = styled.nav`
-display: flex;
-justify-content: space-between;
-align-items: center;
-padding: 5px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 20px;
 `;
 
 const NavbarLogo = styled(Link)`
-display: flex;
-align-items: center;
+  display: flex;
+  align-items: center;
 `;
 
 const NavbarLogoImage = styled.img`
-max-width: 100%;
-width: 200px;
+  max-width: 100%;
+  width: 200px;
 `;
 
 const NavbarList = styled.ul`
-margin: 0;
-padding: 0;
-display: flex;
-list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  list-style-type: none;
 `;
 
 const NavbarListElement = styled.li`
