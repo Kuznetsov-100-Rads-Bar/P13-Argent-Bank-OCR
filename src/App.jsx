@@ -10,16 +10,21 @@ import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 
 // react-router-dom
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 export default function App() {
+  const isLogged = false;
   return (
     <BrowserRouter>
       <Header />
       <Routes>
         <Route index path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/profil" element={<Profil />} />
+        {!isLogged ? (
+          <Route path="/login" element={<Login />} />
+        ) : (
+          <Route path="/profil" element={<Profil />} />
+        )}
+        <Route path="*" element={<Navigate to={"/"} replace={true} />} />
       </Routes>
       <Footer />
     </BrowserRouter>
