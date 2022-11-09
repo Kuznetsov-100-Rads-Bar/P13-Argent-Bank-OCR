@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 // style component
 import styled from "styled-components";
@@ -7,14 +7,40 @@ import styled from "styled-components";
 import { Colors } from "../utils/styleColors/Colors";
 
 export default function Profil() {
+  const [isEditProfileFormOpen, setIsEditProfileFormOpen] = useState(false);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+  }
+
   return (
     <StyledProfil>
       <Main>
-        <ProfilHeader>
-          <ProfilHeaderTitle>Welcome back</ProfilHeaderTitle>
-          <ProfilHeaderName>Tony Jarvis!</ProfilHeaderName>
-        </ProfilHeader>
-
+        {isEditProfileFormOpen ?
+          <ProfilHeader>
+            <ProfilHeaderTitle>Welcome back</ProfilHeaderTitle>
+            <ProfilFormEdit onSubmit={(event) => handleSubmit(event)}>
+              <ProfilFormEditInput>
+                <ProfilInputWrapper>
+                  <ProfilInputText tabIndex={1} placeholder={firstName} type="text" id="firstName" />
+                  <EditProfileButton usage={"save"} tabIndex={3} type='submit'>Save</EditProfileButton>
+                </ProfilInputWrapper>
+                <ProfilInputWrapper>
+                  <ProfilInputText tabIndex={2} placeholder={lastName} type="text" id="lastName" />
+                  <EditProfileButton usage={"cancel"} tabIndex={4} type='reset' onClick={() => setIsEditProfileFormOpen(false)}>Cancel</EditProfileButton>
+                </ProfilInputWrapper>
+              </ProfilFormEditInput>
+            </ProfilFormEdit>
+          </ProfilHeader>
+          :
+          <ProfilHeader>
+            <ProfilHeaderTitle>Welcome back</ProfilHeaderTitle>
+            <ProfilHeaderName>Tony Jarvis!</ProfilHeaderName>
+            <EditProfileButton usage={"edit"} type='button' onClick={() => setIsEditProfileFormOpen(true)}>Edit profile</EditProfileButton>
+          </ProfilHeader>
+        }
         <ProfilAccount>
           <ProfilAccountContentWrapper>
             <ProfilAccountTitle>
@@ -77,12 +103,16 @@ const Main = styled.main`
 `;
 
 const ProfilHeader = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
   color: #fff;
   margin-bottom: 2rem;
 `;
 
 const ProfilHeaderTitle = styled.h1`
-  margin: 20px 0 0 0;
+  margin: 20px 0 10px 0;
 `;
 
 const ProfilHeaderName = styled.h2`
@@ -139,3 +169,44 @@ const ProfilAccountButtonTransaction = styled.button`
   background-color: #00bc77;
   color: #fff;
 `;
+
+const ProfilFormEdit = styled.form`
+
+`;
+
+const ProfilFormEditInput = styled.div`
+  display: flex;
+  // flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+  width: 75%;
+  margin: 0 auto;
+  max-width: 512px
+`;
+
+const EditProfileButton = styled.button`
+    border: none;
+    display: block;
+    padding: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-top: 1rem;
+    border-color: #00bc77;
+    background-color: #00bc77;
+    color: #fff;
+    width: 128px !important;
+    align-self: ${props => props.usage === "save" ? "flex-end" : props.usage === "cancel" ? "flex-start" : "center"};
+`;
+
+const ProfilInputText = styled.input`
+  padding: 5px;
+`;
+
+const ProfilInputWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin-bottom: 1rem;
+
+`;
+
