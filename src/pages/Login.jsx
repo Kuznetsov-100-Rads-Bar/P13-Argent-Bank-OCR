@@ -7,12 +7,21 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 
+import { connect } from "react-redux";
+
 // utils
 import { Colors } from "../utils/styleColors/Colors";
+import { defineUserDataAction } from "../store/actions/UserData.actions";
 
-export default function Login() {
+function Login({ authenticate }) {
+
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    if (inputs.email && inputs.password) {
+      // console.log(inputs)
+      authenticate({ email: inputs.email, password: inputs.password});
+    }
   };
   const handleInput = (event) => {
     setInputs({
@@ -119,3 +128,11 @@ const LoginConnectButton = styled.button`
   background-color: #00bc77;
   color: #fff;
 `
+
+const userDataDispatch = (dispatch) => {
+  return {
+    authenticate: (credentials) => dispatch(defineUserDataAction(credentials))
+  }
+}
+
+export default connect(null, userDataDispatch)(Login);

@@ -15,8 +15,12 @@ import { faSignOutAlt, faUserCircle } from "@fortawesome/free-solid-svg-icons";
 
 // utils
 import { Colors } from "../../utils/styleColors/Colors";
+import { connect } from "react-redux";
+import { removeUserDataAction } from "../../store/actions/UserData.actions";
 
-export default function Header() {
+function Header({ userData, signOut }) {
+  const { isLogged, firstName } = userData;
+
   return (
     <StyledHeader>
       <Navbar>
@@ -24,35 +28,39 @@ export default function Header() {
           <NavbarLogoImage src={ArgentBankLogo} alt="Argent Bank Logo" />
         </NavbarLogo>
         <NavbarList>
-          <NavbarListElement>
-            <NavbarListElementLink as={Link} to={"/profil"}>
-              <FontAwesomeIcon
-                icon={faUserCircle}
-                style={{ marginRight: "0.5rem" }}
-              />
-              Connected user
-            </NavbarListElementLink>
-          </NavbarListElement>
+          {!isLogged ?
+            <NavbarListElement>
+              <NavbarListElementLink as={Link} to={"/login"}>
+                <FontAwesomeIcon
+                  icon={faUserCircle}
+                  style={{ marginRight: "0.5rem" }}
+                />
+                Sign In
+              </NavbarListElementLink>
+            </NavbarListElement>
+            :
+            <>
+              <NavbarListElement>
+                <NavbarListElementLink as={Link} to={"/profil"}>
+                  <FontAwesomeIcon
+                    icon={faUserCircle}
+                    style={{ marginRight: "0.5rem" }}
+                  />
+                  {firstName || 'firstName is undefined'}
+                </NavbarListElementLink>
+              </NavbarListElement>
 
-          <NavbarListElement>
-            <NavbarListElementLink as={Link} to={"/"}>
-              <FontAwesomeIcon
-                icon={faSignOutAlt}
-                style={{ marginRight: "0.5rem" }}
-              />
-              Sign Out
-            </NavbarListElementLink>
-          </NavbarListElement>
-
-          <NavbarListElement>
-            <NavbarListElementLink as={Link} to={"/login"}>
-              <FontAwesomeIcon
-                icon={faUserCircle}
-                style={{ marginRight: "0.5rem" }}
-              />
-              Sign In
-            </NavbarListElementLink>
-          </NavbarListElement>
+              <NavbarListElement>
+                <NavbarListElementLink onClick={(event) => { signOut();event.preventDefault(); }} as={Link} to={"/"}>
+                  <FontAwesomeIcon
+                    icon={faSignOutAlt}
+                    style={{ marginRight: "0.5rem" }}
+                  />
+                  Sign Out
+                </NavbarListElementLink>
+              </NavbarListElement>
+            </>
+          }
         </NavbarList>
       </Navbar>
     </StyledHeader>
@@ -99,3 +107,17 @@ color: ${Colors.neutral};
 &:hover {
 text-decoration: underline;
 `;
+
+const userDataState = (state) => {
+  return {
+    userData: state.userData
+  }
+}
+
+const userDataDispatch = (dispatch) => {
+  return {
+    signOut: () => dispatch(removeUserDataAction())
+  }
+}
+
+export default connect(userDataState, userDataDispatch)(Header);

@@ -9,11 +9,14 @@ import Profil from "./pages/Profil";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 
+import { connect } from "react-redux";
+
 // react-router-dom
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
-export default function App() {
-  const isLogged = false;
+function App({ userData }) {
+  const { isLogged } = userData;
+
   return (
     <BrowserRouter>
       <Header />
@@ -30,3 +33,11 @@ export default function App() {
     </BrowserRouter>
   );
 }
+
+const userDataState = (state) => {
+  return {
+    userData: state.userData
+  }
+}
+
+export default connect(userDataState, null)(App);

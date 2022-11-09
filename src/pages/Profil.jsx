@@ -6,13 +6,28 @@ import styled from "styled-components";
 // utils
 import { Colors } from "../utils/styleColors/Colors";
 
-export default function Profil() {
-  const [isEditProfileFormOpen, setIsEditProfileFormOpen] = useState(false);
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+import { connect } from "react-redux";
+import { editUserProfileAction } from "../store/actions/UserData.actions";
 
-  const handleSubmit = (event) => {
+function Profil({ userData, editProfile }) {
+  const { firstName, lastName } = userData;
+
+  const [isEditProfileFormOpen, setIsEditProfileFormOpen] = useState(false);
+  const [editFirstName, setEditFirstName] = useState("");
+  const [editLastName, setEditLastName] = useState("");
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    
+    if (editFirstName || editLastName) {
+      const result = await editProfile({ identity: { firstName: editFirstName || firstName, lastName: editLastName || lastName }, token: userData.accessToken});
+
+      if (!result) {
+        return false;
+      }
+
+      setIsEditProfileFormOpen(false);
+    }
   }
 
   return (
@@ -24,11 +39,11 @@ export default function Profil() {
             <ProfilFormEdit onSubmit={(event) => handleSubmit(event)}>
               <ProfilFormEditInput>
                 <ProfilInputWrapper>
-                  <ProfilInputText tabIndex={1} placeholder={firstName} type="text" id="firstName" />
+                  <ProfilInputText tabIndex={1} placeholder={firstName} value={editFirstName} onChange={(event) => setEditFirstName(event.currentTarget.value)} type="text" id="firstName" />
                   <EditProfileButton usage={"save"} tabIndex={3} type='submit'>Save</EditProfileButton>
                 </ProfilInputWrapper>
                 <ProfilInputWrapper>
-                  <ProfilInputText tabIndex={2} placeholder={lastName} type="text" id="lastName" />
+                  <ProfilInputText tabIndex={2} placeholder={lastName} value={editLastName} onChange={(event) => setEditLastName(event.currentTarget.value)} type="text" id="lastName" />
                   <EditProfileButton usage={"cancel"} tabIndex={4} type='reset' onClick={() => setIsEditProfileFormOpen(false)}>Cancel</EditProfileButton>
                 </ProfilInputWrapper>
               </ProfilFormEditInput>
@@ -37,7 +52,7 @@ export default function Profil() {
           :
           <ProfilHeader>
             <ProfilHeaderTitle>Welcome back</ProfilHeaderTitle>
-            <ProfilHeaderName>Tony Jarvis!</ProfilHeaderName>
+            <ProfilHeaderName>{firstName} {lastName}</ProfilHeaderName>
             <EditProfileButton usage={"edit"} type='button' onClick={() => setIsEditProfileFormOpen(true)}>Edit profile</EditProfileButton>
           </ProfilHeader>
         }
@@ -210,3 +225,16 @@ const ProfilInputWrapper = styled.div`
 
 `;
 
+const userDataState = (state) => {
+  return {
+    userData: state.userData
+  }
+}
+
+const userDataDispatch = (dispatch) => {
+  return {
+    editProfile: (identity) => dispatch(editUserProfileAction(identity))
+  }
+}
+
+export default connect(userDataState, userDataDispatch)(Profil);

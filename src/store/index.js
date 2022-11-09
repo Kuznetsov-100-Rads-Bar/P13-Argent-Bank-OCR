@@ -1,5 +1,13 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { applyMiddleware, combineReducers, legacy_createStore as createStore } from 'redux'
+import { userDataMiddleware } from "./middlewares/UserData.middlewares";
+import UserDataReducers from "./reducers/UserData.reducers";
 
-export const store = configureStore({
-  reducer: {},
+const middlewares = applyMiddleware(
+  userDataMiddleware
+);
+
+const reducers = combineReducers({
+  userData: UserDataReducers
 });
+
+export const store = createStore(reducers, middlewares /*&& window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()*/)
