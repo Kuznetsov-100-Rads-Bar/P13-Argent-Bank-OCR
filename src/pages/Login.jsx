@@ -14,13 +14,16 @@ import { Colors } from "../utils/styleColors/Colors";
 import { defineUserDataAction } from "../store/actions/UserData.actions";
 
 function Login({ authenticate }) {
-
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     if (inputs.email && inputs.password) {
       // console.log(inputs)
-      authenticate({ email: inputs.email, password: inputs.password});
+      authenticate({ email: inputs.email, password: inputs.password });
+      ////////Pierre////
+      // const response = await signInUser({ email: inputs.email, password: inputs.password});
+      // declenche un action Redux pour envoyer le token dans le store
+      //////////////////
     }
   };
   const handleInput = (event) => {
@@ -67,9 +70,7 @@ function Login({ authenticate }) {
                 Remember me
               </LoginFormLabelRecollect>
             </LoginFormCategoryRecollect>
-            <LoginConnectButton
-              type="submit"
-            >Sign In</LoginConnectButton>
+            <LoginConnectButton type="submit">Sign In</LoginConnectButton>
           </LoginForm>
         </LoginContent>
       </Main>
@@ -127,12 +128,12 @@ const LoginConnectButton = styled.button`
   border-color: #00bc77;
   background-color: #00bc77;
   color: #fff;
-`
+`;
 
 const userDataDispatch = (dispatch) => {
   return {
-    authenticate: (credentials) => dispatch(defineUserDataAction(credentials))
-  }
-}
+    authenticate: (credentials) => dispatch(defineUserDataAction(credentials)),
+  };
+};
 
 export default connect(null, userDataDispatch)(Login);

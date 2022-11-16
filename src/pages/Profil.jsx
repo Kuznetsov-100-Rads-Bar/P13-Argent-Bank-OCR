@@ -18,9 +18,15 @@ function Profil({ userData, editProfile }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    
+
     if (editFirstName || editLastName) {
-      const result = await editProfile({ identity: { firstName: editFirstName || firstName, lastName: editLastName || lastName }, token: userData.accessToken});
+      const result = await editProfile({
+        identity: {
+          firstName: editFirstName || firstName,
+          lastName: editLastName || lastName,
+        },
+        token: userData.accessToken,
+      });
 
       if (!result) {
         return false;
@@ -28,34 +34,69 @@ function Profil({ userData, editProfile }) {
 
       setIsEditProfileFormOpen(false);
     }
-  }
+  };
 
   return (
     <StyledProfil>
       <Main>
-        {isEditProfileFormOpen ?
+        {isEditProfileFormOpen ? (
           <ProfilHeader>
             <ProfilHeaderTitle>Welcome back</ProfilHeaderTitle>
             <ProfilFormEdit onSubmit={(event) => handleSubmit(event)}>
               <ProfilFormEditInput>
                 <ProfilInputWrapper>
-                  <ProfilInputText tabIndex={1} placeholder={firstName} value={editFirstName} onChange={(event) => setEditFirstName(event.currentTarget.value)} type="text" id="firstName" />
-                  <EditProfileButton usage={"save"} tabIndex={3} type='submit'>Save</EditProfileButton>
+                  <ProfilInputText
+                    tabIndex={1}
+                    placeholder={firstName}
+                    value={editFirstName}
+                    onChange={(event) =>
+                      setEditFirstName(event.currentTarget.value)
+                    }
+                    type="text"
+                    id="firstName"
+                  />
+                  <EditProfileButton usage={"save"} tabIndex={3} type="submit">
+                    Save
+                  </EditProfileButton>
                 </ProfilInputWrapper>
                 <ProfilInputWrapper>
-                  <ProfilInputText tabIndex={2} placeholder={lastName} value={editLastName} onChange={(event) => setEditLastName(event.currentTarget.value)} type="text" id="lastName" />
-                  <EditProfileButton usage={"cancel"} tabIndex={4} type='reset' onClick={() => setIsEditProfileFormOpen(false)}>Cancel</EditProfileButton>
+                  <ProfilInputText
+                    tabIndex={2}
+                    placeholder={lastName}
+                    value={editLastName}
+                    onChange={(event) =>
+                      setEditLastName(event.currentTarget.value)
+                    }
+                    type="text"
+                    id="lastName"
+                  />
+                  <EditProfileButton
+                    usage={"cancel"}
+                    tabIndex={4}
+                    type="reset"
+                    onClick={() => setIsEditProfileFormOpen(false)}
+                  >
+                    Cancel
+                  </EditProfileButton>
                 </ProfilInputWrapper>
               </ProfilFormEditInput>
             </ProfilFormEdit>
           </ProfilHeader>
-          :
+        ) : (
           <ProfilHeader>
             <ProfilHeaderTitle>Welcome back</ProfilHeaderTitle>
-            <ProfilHeaderName>{firstName} {lastName}</ProfilHeaderName>
-            <EditProfileButton usage={"edit"} type='button' onClick={() => setIsEditProfileFormOpen(true)}>Edit profile</EditProfileButton>
+            <ProfilHeaderName>
+              {firstName} {lastName}
+            </ProfilHeaderName>
+            <EditProfileButton
+              usage={"edit"}
+              type="button"
+              onClick={() => setIsEditProfileFormOpen(true)}
+            >
+              Edit profile
+            </EditProfileButton>
           </ProfilHeader>
-        }
+        )}
         <ProfilAccount>
           <ProfilAccountContentWrapper>
             <ProfilAccountTitle>
@@ -185,9 +226,7 @@ const ProfilAccountButtonTransaction = styled.button`
   color: #fff;
 `;
 
-const ProfilFormEdit = styled.form`
-
-`;
+const ProfilFormEdit = styled.form``;
 
 const ProfilFormEditInput = styled.div`
   display: flex;
@@ -196,21 +235,26 @@ const ProfilFormEditInput = styled.div`
   gap: 16px;
   width: 75%;
   margin: 0 auto;
-  max-width: 512px
+  max-width: 512px;
 `;
 
 const EditProfileButton = styled.button`
-    border: none;
-    display: block;
-    padding: 8px;
-    font-size: 1.1rem;
-    font-weight: bold;
-    margin-top: 1rem;
-    border-color: #00bc77;
-    background-color: #00bc77;
-    color: #fff;
-    width: 128px !important;
-    align-self: ${props => props.usage === "save" ? "flex-end" : props.usage === "cancel" ? "flex-start" : "center"};
+  border: none;
+  display: block;
+  padding: 8px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-top: 1rem;
+  border-color: #00bc77;
+  background-color: #00bc77;
+  color: #fff;
+  width: 128px !important;
+  align-self: ${(props) =>
+    props.usage === "save"
+      ? "flex-end"
+      : props.usage === "cancel"
+      ? "flex-start"
+      : "center"};
 `;
 
 const ProfilInputText = styled.input`
@@ -218,23 +262,22 @@ const ProfilInputText = styled.input`
 `;
 
 const ProfilInputWrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-    margin-bottom: 1rem;
-
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  margin-bottom: 1rem;
 `;
 
 const userDataState = (state) => {
   return {
-    userData: state.userData
-  }
-}
+    userData: state.userData,
+  };
+};
 
 const userDataDispatch = (dispatch) => {
   return {
-    editProfile: (identity) => dispatch(editUserProfileAction(identity))
-  }
-}
+    editProfile: (identity) => dispatch(editUserProfileAction(identity)),
+  };
+};
 
 export default connect(userDataState, userDataDispatch)(Profil);
