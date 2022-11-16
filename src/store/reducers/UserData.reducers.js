@@ -1,4 +1,5 @@
-const initialState = {
+/* Getting the data from the sessionStorage and parsing it to JSON. */
+const initialState = JSON.parse(sessionStorage.getItem('userData')) || {
   isLogged: false,
 };
 
@@ -11,6 +12,8 @@ const UserDataReducers = (state = initialState, options) => {
   switch (options.type) {
     case defineUserData:
       state = Object.assign({}, state, { isLogged: true }, options.payload);
+      /* Saving the state to the sessionStorage. */
+      sessionStorage.setItem('userData', JSON.stringify(state));
       return state;
     case editProfileName:
       const { firstName, lastName } = options.payload;
@@ -20,9 +23,15 @@ const UserDataReducers = (state = initialState, options) => {
         lastName: lastName
       });
 
+      sessionStorage.setItem('userData', JSON.stringify(state));
+
       return state;
     case removeUserData:
-      state = initialState;
+      console.log("signout")
+      sessionStorage.removeItem('userData');
+      state = {
+        isLogged: false
+      };
       return state;
     default:
       break;
