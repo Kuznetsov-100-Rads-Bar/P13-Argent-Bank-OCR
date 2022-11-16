@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 // pages
 import Home from "./pages/Home";
@@ -13,7 +13,6 @@ import { connect } from "react-redux";
 
 // react-router-dom
 import {
-  useLocation,
   BrowserRouter,
   Routes,
   Route,
@@ -22,11 +21,7 @@ import {
 
 function App({ userData }) {
   const { isLogged } = userData;
-  const [userLocation, setUserLocation] = useState("");
 
-  setInterval(() => {
-    console.log(userLocation);
-  }, 2000);
   return (
     <BrowserRouter>
       <Header />
