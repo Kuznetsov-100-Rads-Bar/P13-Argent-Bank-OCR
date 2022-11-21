@@ -1,4 +1,4 @@
-import { defineUserData, editProfileName } from "../reducers/UserData.reducers"
+import { defineUserData, editProfileName, fetchUserProfileData } from "../reducers/UserData.reducers"
 import axios from 'axios';
 
 const apiUrl = 'http://localhost:3001/api/v1';
@@ -38,6 +38,19 @@ export const userDataMiddleware = (store) => (next) => async (options) => {
 
         return next(options);
         // console.log(response?.data?.body?.token)  // Vérifie l'existance des sous listes pour ne pas retourner d'erreur.
+    }
+
+    if (options.type === fetchUserProfileData) {
+        const { token } = options.payload;
+
+        const response = await fetchUserProfile(token);
+
+        if (!response) {
+            return false
+        }
+
+        options.payload = response;
+        return next(options);
     }
 
     if (options.type === editProfileName) {

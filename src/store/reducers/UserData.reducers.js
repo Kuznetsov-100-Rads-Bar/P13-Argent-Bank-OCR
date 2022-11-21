@@ -4,15 +4,22 @@ const initialState = JSON.parse(sessionStorage.getItem('userData')) || {
 };
 
 export const defineUserData = 'userData/define';
+export const fetchUserProfileData = 'userData/profile/fetch';
 export const removeUserData = 'userData/remove';
 export const editProfileName = 'userData/profile/edit';
 
 const UserDataReducers = (state = initialState, options) => {
-  console.log(options.type)
+  // console.debug(options.type)
   switch (options.type) {
     case defineUserData:
       state = Object.assign({}, state, { isLogged: true }, options.payload);
       /* Saving the state to the sessionStorage. */
+
+      sessionStorage.setItem('userData', JSON.stringify(state));
+      return state;
+    case fetchUserProfileData:
+      state = Object.assign({}, state, options.payload);
+
       sessionStorage.setItem('userData', JSON.stringify(state));
       return state;
     case editProfileName:
@@ -27,7 +34,6 @@ const UserDataReducers = (state = initialState, options) => {
 
       return state;
     case removeUserData:
-      console.log("signout")
       sessionStorage.removeItem('userData');
       state = {
         isLogged: false

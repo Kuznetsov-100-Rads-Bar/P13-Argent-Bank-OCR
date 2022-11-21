@@ -19,8 +19,18 @@ import {
   Navigate,
 } from "react-router-dom";
 
-function App({ userData }) {
+import { fetchUserProfileDataAction } from "./store/actions/UserData.actions";
+import { useEffect } from "react";
+
+function App({ userData, fetchUserData }) {
   const { isLogged } = userData;
+
+  useEffect(() => {
+    if (isLogged) {
+      fetchUserData({ token: userData.accessToken });
+    }
+  }, [])
+
 
   return (
     <BrowserRouter>
@@ -52,4 +62,10 @@ const userDataState = (state) => {
   };
 };
 
-export default connect(userDataState, null)(App);
+const userDataDispatch = (dispatch) => {
+  return {
+    fetchUserData: (token) => dispatch(fetchUserProfileDataAction(token))
+  }
+}
+
+export default connect(userDataState, userDataDispatch)(App);

@@ -1,4 +1,4 @@
-import { defineUserData, editProfileName, removeUserData } from "../reducers/UserData.reducers";
+import { defineUserData, editProfileName, fetchUserProfileData, removeUserData } from "../reducers/UserData.reducers";
 
 export const defineUserDataAction = (credentials) => ({
     type: defineUserData,
@@ -7,6 +7,11 @@ export const defineUserDataAction = (credentials) => ({
 
 export const editUserProfileAction = (data) => ({
     type: editProfileName,
+    payload: data
+});
+
+export const fetchUserProfileDataAction = (data) => ({
+    type: fetchUserProfileData,
     payload: data
 });
 
