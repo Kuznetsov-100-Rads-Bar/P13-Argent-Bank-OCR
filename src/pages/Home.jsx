@@ -1,13 +1,18 @@
+/* Importing the React library. */
 import React from 'react';
-import styled from 'styled-components';
-import BankTree from '../assets/bank-tree.jpeg';
 
+// styled components
+import styled from 'styled-components';
+
+// assets
+import BankTree from '../assets/bank-tree.jpeg';
 import IconChat from "../assets/icon-chat.png";
 import IconMoney from "../assets/icon-money.png";
 import IconSecurity from "../assets/icon-security.png";
 import FeatureElement from '../components/Feature/FeatureElement';
 
 export default function HomePage() {
+/* An array of objects. */
   const FeatureCardData = [
     {
       icon: IconChat,

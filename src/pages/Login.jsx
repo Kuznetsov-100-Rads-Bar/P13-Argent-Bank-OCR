@@ -1,3 +1,4 @@
+/* Importing the React library and the useState hook from the React library. */
 import React, { useState } from "react";
 
 // style component
@@ -26,6 +27,11 @@ function Login({ authenticate }) {
       //////////////////
     }
   };
+/**
+ * The handleInput function takes an event as an argument, and then sets the state of the inputs object
+ * to the current state of the inputs object, with the value of the event target's id property set to
+ * the value of the event target's value property.
+ */
   const handleInput = (event) => {
     setInputs({
       ...inputs,
@@ -130,6 +136,12 @@ const LoginConnectButton = styled.button`
   color: #fff;
 `;
 
+/**
+ * This function takes a dispatch function as an argument and returns an object with a function that
+ * takes a credentials object as an argument and dispatches a defineUserDataAction function with the
+ * credentials object as an argument.
+ * @returns An object with a function that takes in a parameter and dispatches an action.
+ */
 const userDataDispatch = (dispatch) => {
   return {
     authenticate: (credentials) => dispatch(defineUserDataAction(credentials)),

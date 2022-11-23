@@ -268,12 +268,23 @@ const ProfilInputWrapper = styled.div`
   margin-bottom: 1rem;
 `;
 
+/**
+ * UserDataState is a function that takes a state and returns an object with a userData property that
+ * is equal to the userData property of the state object.
+ * @returns The userData object from the state.
+ */
 const userDataState = (state) => {
   return {
     userData: state.userData,
   };
 };
 
+/**
+ * UserDataDispatch is a function that takes a dispatch function as an argument and returns an object
+ * with a function called editProfile that takes an identity argument and returns a dispatch function
+ * that takes an editUserProfileAction function as an argument.
+ * @returns An object with a function that takes in an identity and dispatches an action.
+ */
 const userDataDispatch = (dispatch) => {
   return {
     editProfile: (identity) => dispatch(editUserProfileAction(identity)),
