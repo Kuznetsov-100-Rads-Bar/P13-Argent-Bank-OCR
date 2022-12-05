@@ -14,24 +14,32 @@ import { connect } from "react-redux";
 import { Colors } from "../utils/styleColors/Colors";
 import { defineUserDataAction } from "../store/actions/UserData.actions";
 
+import { useNavigate } from 'react-router-dom';
+
 function Login({ authenticate }) {
+  const navigate = useNavigate();
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     if (inputs.email && inputs.password) {
       // console.log(inputs)
-      authenticate({ email: inputs.email, password: inputs.password });
+      const isAuth = await authenticate({ email: inputs.email, password: inputs.password });
+
+      if (isAuth) {
+        navigate('/profil', { replace: true });
+      }
       ////////Pierre////
       // const response = await signInUser({ email: inputs.email, password: inputs.password});
       // declenche un action Redux pour envoyer le token dans le store
       //////////////////
     }
   };
-/**
- * The handleInput function takes an event as an argument, and then sets the state of the inputs object
- * to the current state of the inputs object, with the value of the event target's id property set to
- * the value of the event target's value property.
- */
+  /**
+   * The handleInput function takes an event as an argument, and then sets the state of the inputs object
+   * to the current state of the inputs object, with the value of the event target's id property set to
+   * the value of the event target's value property.
+   */
   const handleInput = (event) => {
     setInputs({
       ...inputs,

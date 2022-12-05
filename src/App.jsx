@@ -29,6 +29,7 @@ function App({ userData, fetchUserData }) {
     if (isLogged) {
       fetchUserData({ token: userData.accessToken });
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
 

@@ -183,11 +183,15 @@ const ProfilAccount = styled.section`
   background-color: #fff;
   width: 80%;
   margin: 0 auto;
-  flex-direction: colomn;
+  flex-direction: column;
   padding: 1.5rem;
   box-sizing: border-box;
   text-align: left;
   margin-bottom: 2rem;
+
+  @media (min-width: 720px) {
+    flex-direction: row;
+  }
 `;
 
 const ProfilAccountContentWrapper = styled.div`
@@ -224,18 +228,27 @@ const ProfilAccountButtonTransaction = styled.button`
   border-color: #00bc77;
   background-color: #00bc77;
   color: #fff;
+
+  
+  @media (min-width: 720px) {
+    width: 200px;
+  }
 `;
 
 const ProfilFormEdit = styled.form``;
 
 const ProfilFormEditInput = styled.div`
   display: flex;
-  // flex-direction: column;
+  flex-direction: column;
   justify-content: center;
   gap: 16px;
   width: 75%;
   margin: 0 auto;
   max-width: 512px;
+
+  @media screen and (min-width: 768px) {
+        flex-direction: row;
+  }
 `;
 
 const EditProfileButton = styled.button`
@@ -249,12 +262,15 @@ const EditProfileButton = styled.button`
   background-color: #00bc77;
   color: #fff;
   width: 128px !important;
-  align-self: ${(props) =>
-    props.usage === "save"
-      ? "flex-end"
-      : props.usage === "cancel"
-      ? "flex-start"
-      : "center"};
+  align-self: center;
+  @media screen and (min-width: 768px) {
+    align-self: ${(props) =>
+      props.usage === "save"
+        ? "flex-end"
+        : props.usage === "cancel"
+        ? "flex-start"
+        : "center"};
+  }
 `;
 
 const ProfilInputText = styled.input`
